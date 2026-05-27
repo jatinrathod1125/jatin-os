@@ -1,6 +1,6 @@
 import { Head, router, useForm, usePage } from '@inertiajs/react';
 import { Bot, Eye, Mail, Pencil, Plus, Trash2 } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { FormEvent } from 'react';
 import { dashboard } from '@/routes';
 
@@ -162,19 +162,24 @@ export default function AdminDashboard({
         <>
             <Head title="Admin Console" />
             <div className="flex flex-1 flex-col gap-6 overflow-x-hidden p-4 md:p-6">
+                {/* Header section */}
                 <div>
-                    <p className="text-xs font-medium tracking-[0.22em] text-cyan-600 dark:text-cyan-300">
+                    <p className="font-mono text-[10px] tracking-[0.22em] text-cyan-300 uppercase">
                         SYSTEM ADMINISTRATION
                     </p>
-                    <h1 className="mt-2 text-2xl font-semibold">
+                    <h1 className="mt-2 text-2xl font-semibold text-white">
                         Portfolio control center
                     </h1>
                     {flash?.success && (
-                        <p className="mt-3 rounded-lg border border-emerald-500/20 bg-emerald-500/8 px-4 py-2 text-sm text-emerald-600 dark:text-emerald-300">
-                            {flash.success}
-                        </p>
+                        <div className="mt-3 rounded-lg border border-emerald-400/20 bg-emerald-400/[0.08] px-4 py-2.5 backdrop-blur-sm">
+                            <p className="text-sm text-emerald-300">
+                                {flash.success}
+                            </p>
+                        </div>
                     )}
                 </div>
+
+                {/* Metrics grid */}
                 <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                     <Metric
                         label="Unique visits"
@@ -197,19 +202,21 @@ export default function AdminDashboard({
                         icon={Bot}
                     />
                 </section>
+
+                {/* Projects + Skills */}
                 <section className="grid gap-5 xl:grid-cols-[1.2fr_0.8fr]">
                     <Panel title="Project filesystem">
                         <div className="space-y-2">
                             {projects.map((project) => (
                                 <div
                                     key={project.id}
-                                    className="flex items-center justify-between gap-3 rounded-lg border border-border px-3 py-2"
+                                    className="group flex items-center justify-between gap-3 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-2.5 transition-all duration-200 hover:border-white/[0.12] hover:bg-white/[0.04]"
                                 >
                                     <div className="min-w-0">
-                                        <p className="truncate text-sm font-medium">
+                                        <p className="truncate text-sm font-medium text-white">
                                             {project.title}
                                         </p>
-                                        <p className="truncate text-xs text-muted-foreground">
+                                        <p className="truncate text-xs text-slate-400">
                                             {project.tagline}
                                         </p>
                                     </div>
@@ -252,11 +259,11 @@ export default function AdminDashboard({
                             {skills.map((skill) => (
                                 <div
                                     key={skill.id}
-                                    className="flex items-center justify-between rounded-lg border border-border px-3 py-2 text-sm"
+                                    className="group flex items-center justify-between rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-2.5 text-sm transition-all duration-200 hover:border-white/[0.12] hover:bg-white/[0.04]"
                                 >
-                                    <span>
+                                    <span className="text-slate-300">
                                         {skill.name}{' '}
-                                        <span className="text-muted-foreground">
+                                        <span className="text-slate-500">
                                             {skill.level}%
                                         </span>
                                     </span>
@@ -295,10 +302,12 @@ export default function AdminDashboard({
                         />
                     </Panel>
                 </section>
+
+                {/* Messages + Chats */}
                 <section className="grid gap-5 xl:grid-cols-2">
                     <Panel title="Latest transmissions">
                         {messages.length === 0 && (
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-sm text-slate-500">
                                 No contact messages yet.
                             </p>
                         )}
@@ -306,18 +315,18 @@ export default function AdminDashboard({
                             {messages.map((message) => (
                                 <article
                                     key={message.id}
-                                    className="rounded-lg border border-border p-3"
+                                    className="rounded-lg border border-white/[0.06] bg-white/[0.02] p-3 transition-all duration-200 hover:border-white/[0.12] hover:bg-white/[0.04]"
                                 >
-                                    <p className="text-sm font-medium">
+                                    <p className="text-sm font-medium text-white">
                                         {message.name}{' '}
-                                        <span className="font-normal text-muted-foreground">
+                                        <span className="font-normal text-slate-400">
                                             {message.email}
                                         </span>
                                     </p>
-                                    <p className="mt-1 text-xs text-muted-foreground">
+                                    <p className="mt-1 text-xs text-slate-500">
                                         {message.subject || 'Portfolio inquiry'}
                                     </p>
-                                    <p className="mt-2 line-clamp-2 text-sm">
+                                    <p className="mt-2 line-clamp-2 text-sm text-slate-300">
                                         {message.message}
                                     </p>
                                 </article>
@@ -326,7 +335,7 @@ export default function AdminDashboard({
                     </Panel>
                     <Panel title="ORBIT history">
                         {chats.length === 0 && (
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-sm text-slate-500">
                                 No assistant prompts yet.
                             </p>
                         )}
@@ -334,15 +343,15 @@ export default function AdminDashboard({
                             {chats.map((chat) => (
                                 <article
                                     key={chat.id}
-                                    className="rounded-lg border border-border p-3"
+                                    className="rounded-lg border border-white/[0.06] bg-white/[0.02] p-3 transition-all duration-200 hover:border-white/[0.12] hover:bg-white/[0.04]"
                                 >
-                                    <p className="text-sm font-medium">
+                                    <p className="text-sm font-medium text-white">
                                         {chat.prompt}
                                     </p>
-                                    <p className="mt-2 line-clamp-2 text-xs text-muted-foreground">
+                                    <p className="mt-2 line-clamp-2 text-xs text-slate-400">
                                         {chat.response}
                                     </p>
-                                    <p className="mt-2 font-mono text-[10px] text-cyan-600 uppercase dark:text-cyan-300">
+                                    <p className="mt-2 font-mono text-[10px] tracking-[0.22em] text-cyan-300 uppercase">
                                         {chat.provider}
                                     </p>
                                 </article>
@@ -362,6 +371,8 @@ AdminDashboard.layout = {
     ],
 };
 
+/* ─── Sub-components ─────────────────────────────────────────────── */
+
 function Metric({
     label,
     value,
@@ -371,11 +382,47 @@ function Metric({
     value: number;
     icon: typeof Eye;
 }) {
+    const [displayed, setDisplayed] = useState(0);
+    const ref = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (value === 0) {
+            setDisplayed(0);
+            return;
+        }
+
+        const duration = 1200;
+        const steps = 40;
+        const increment = value / steps;
+        let current = 0;
+        let step = 0;
+
+        const timer = setInterval(() => {
+            step++;
+            current = Math.min(Math.round(increment * step), value);
+            setDisplayed(current);
+            if (step >= steps) {
+                clearInterval(timer);
+                setDisplayed(value);
+            }
+        }, duration / steps);
+
+        return () => clearInterval(timer);
+    }, [value]);
+
     return (
-        <div className="rounded-xl border border-border bg-card p-4">
-            <Icon className="size-4 text-cyan-600 dark:text-cyan-300" />
-            <p className="mt-4 text-3xl font-semibold">{value}</p>
-            <p className="mt-1 text-sm text-muted-foreground">{label}</p>
+        <div
+            ref={ref}
+            className="group relative overflow-hidden rounded-xl border border-white/[0.08] bg-white/[0.03] p-4 backdrop-blur-xl transition-all duration-300 hover:border-cyan-400/20 hover:bg-white/[0.05] hover:shadow-[0_0_30px_-5px_rgba(0,245,255,0.08)]"
+        >
+            {/* Decorative glow dot */}
+            <div className="absolute -top-1 -right-1 size-16 rounded-full bg-cyan-400/[0.04] blur-2xl transition-opacity duration-500 group-hover:opacity-100 opacity-0" />
+
+            <Icon className="size-4 text-cyan-400 drop-shadow-[0_0_6px_rgba(0,245,255,0.4)]" />
+            <p className="mt-4 text-3xl font-bold tabular-nums text-white">
+                {displayed}
+            </p>
+            <p className="mt-1 text-sm text-slate-400">{label}</p>
         </div>
     );
 }
@@ -388,8 +435,11 @@ function Panel({
     children: React.ReactNode;
 }) {
     return (
-        <section className="rounded-xl border border-border bg-card p-4">
-            <h2 className="mb-4 text-sm font-semibold">{title}</h2>
+        <section className="relative overflow-hidden rounded-xl border border-white/[0.08] bg-white/[0.03] p-5 backdrop-blur-xl">
+            {/* Panel header */}
+            <h2 className="mb-4 font-mono text-[10px] font-semibold tracking-[0.22em] text-cyan-300 uppercase">
+                {title}
+            </h2>
             {children}
         </section>
     );
@@ -404,12 +454,17 @@ function IconButton({
     onClick: () => void;
     children: React.ReactNode;
 }) {
+    const isDelete = label === 'Delete';
     return (
         <button
             type="button"
             aria-label={label}
             onClick={onClick}
-            className="rounded-md p-2 text-muted-foreground hover:bg-muted hover:text-foreground"
+            className={`rounded-md p-2 text-slate-500 transition-all duration-200 ${
+                isDelete
+                    ? 'hover:bg-rose-400/[0.15] hover:text-rose-300'
+                    : 'hover:bg-white/[0.08] hover:text-cyan-200'
+            }`}
         >
             {children}
         </button>
@@ -430,10 +485,10 @@ function ProjectForm({
     return (
         <form
             onSubmit={onSubmit}
-            className="mt-5 space-y-2 border-t border-border pt-4"
+            className="mt-5 space-y-2 border-t border-white/[0.06] pt-4"
         >
-            <p className="mb-3 flex items-center gap-2 text-sm font-medium">
-                <Plus className="size-4" />
+            <p className="mb-3 flex items-center gap-2 text-sm font-medium text-white">
+                <Plus className="size-4 text-cyan-400" />
                 {editing ? 'Edit project' : 'Add project'}
             </p>
             <div className="grid gap-2 md:grid-cols-2">
@@ -460,14 +515,14 @@ function ProjectForm({
                     form.setData('description', event.target.value)
                 }
                 placeholder="Description"
-                className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
+                className="w-full rounded-md border border-white/10 bg-white/[0.04] px-3 py-2 text-sm text-white placeholder-slate-500 transition-colors duration-200 focus:border-cyan-400/50 focus:outline-none focus:ring-1 focus:ring-cyan-400/20"
             />
             <AdminInput
                 placeholder="Stack, separated by commas"
                 value={form.data.tech_stack}
                 onChange={(value) => form.setData('tech_stack', value)}
             />
-            <div className="flex flex-wrap items-center gap-3 py-2 text-xs">
+            <div className="flex flex-wrap items-center gap-3 py-2 text-xs text-slate-300">
                 <select
                     value={form.data.accent}
                     onChange={(event) =>
@@ -476,30 +531,32 @@ function ProjectForm({
                             event.target.value as Project['accent'],
                         )
                     }
-                    className="rounded-md border border-input bg-background px-2 py-1.5"
+                    className="rounded-md border border-white/10 bg-white/[0.04] px-2 py-1.5 text-white transition-colors duration-200 focus:border-cyan-400/50 focus:outline-none"
                 >
                     <option value="cyan">Cyan</option>
                     <option value="violet">Violet</option>
                     <option value="emerald">Emerald</option>
                     <option value="amber">Amber</option>
                 </select>
-                <label>
+                <label className="flex items-center gap-1.5 text-slate-300 select-none">
                     <input
                         type="checkbox"
                         checked={form.data.featured}
                         onChange={(event) =>
                             form.setData('featured', event.target.checked)
                         }
+                        className="accent-cyan-400"
                     />{' '}
                     Featured
                 </label>
-                <label>
+                <label className="flex items-center gap-1.5 text-slate-300 select-none">
                     <input
                         type="checkbox"
                         checked={form.data.published}
                         onChange={(event) =>
                             form.setData('published', event.target.checked)
                         }
+                        className="accent-cyan-400"
                     />{' '}
                     Published
                 </label>
@@ -525,8 +582,8 @@ function SkillForm({
     onCancel: () => void;
 }) {
     return (
-        <form onSubmit={onSubmit} className="border-t border-border pt-4">
-            <p className="mb-3 text-sm font-medium">
+        <form onSubmit={onSubmit} className="border-t border-white/[0.06] pt-4">
+            <p className="mb-3 text-sm font-medium text-white">
                 {editing ? 'Edit skill' : 'Add skill'}
             </p>
             <div className="grid gap-2 sm:grid-cols-2">
@@ -560,13 +617,14 @@ function SkillForm({
                 value={form.data.summary}
                 onChange={(value) => form.setData('summary', value)}
             />
-            <label className="my-3 block text-xs">
+            <label className="my-3 flex items-center gap-1.5 text-xs text-slate-300 select-none">
                 <input
                     type="checkbox"
                     checked={form.data.visible}
                     onChange={(event) =>
                         form.setData('visible', event.target.checked)
                     }
+                    className="accent-cyan-400"
                 />{' '}
                 Visible on portfolio
             </label>
@@ -600,7 +658,7 @@ function AdminInput({
             value={value}
             onChange={(event) => onChange(event.target.value)}
             placeholder={placeholder}
-            className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm"
+            className="w-full rounded-md border border-white/10 bg-white/[0.04] px-3 py-2 text-sm text-white placeholder-slate-500 transition-colors duration-200 focus:border-cyan-400/50 focus:outline-none focus:ring-1 focus:ring-cyan-400/20"
         />
     );
 }
@@ -618,7 +676,7 @@ function FormActions({
         <div className="flex gap-2 pt-2">
             <button
                 disabled={processing}
-                className="rounded-md bg-primary px-3 py-2 text-xs text-primary-foreground disabled:opacity-50"
+                className="rounded-md bg-cyan-400 px-4 py-2 text-xs font-semibold text-[#03111c] shadow-[0_0_20px_-4px_rgba(0,245,255,0.3)] transition-all duration-200 hover:bg-cyan-300 hover:shadow-[0_0_25px_-2px_rgba(0,245,255,0.4)] disabled:opacity-50"
             >
                 {editing ? 'Update' : 'Create'}
             </button>
@@ -626,7 +684,7 @@ function FormActions({
                 <button
                     type="button"
                     onClick={onCancel}
-                    className="rounded-md border border-input px-3 py-2 text-xs"
+                    className="rounded-md border border-white/10 bg-white/[0.04] px-4 py-2 text-xs text-slate-300 transition-all duration-200 hover:border-white/20 hover:bg-white/[0.08]"
                 >
                     Cancel
                 </button>

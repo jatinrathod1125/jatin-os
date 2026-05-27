@@ -98,38 +98,38 @@
 }
 
 .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.145 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.145 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.985 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
+    --background: oklch(0.10 0.015 250);
+    --foreground: oklch(0.93 0.005 250);
+    --card: oklch(0.12 0.015 250);
+    --card-foreground: oklch(0.93 0.005 250);
+    --popover: oklch(0.13 0.018 250);
+    --popover-foreground: oklch(0.93 0.005 250);
+    --primary: oklch(0.82 0.16 195);
+    --primary-foreground: oklch(0.15 0.02 250);
+    --secondary: oklch(0.18 0.015 250);
+    --secondary-foreground: oklch(0.90 0.005 250);
+    --muted: oklch(0.18 0.015 250);
+    --muted-foreground: oklch(0.60 0.01 250);
+    --accent: oklch(0.18 0.018 250);
+    --accent-foreground: oklch(0.90 0.005 250);
     --destructive: oklch(0.396 0.141 25.723);
     --destructive-foreground: oklch(0.637 0.237 25.331);
-    --border: oklch(0.269 0 0);
-    --input: oklch(0.269 0 0);
-    --ring: oklch(0.439 0 0);
-    --chart-1: oklch(0.488 0.243 264.376);
+    --border: oklch(0.22 0.012 250);
+    --input: oklch(0.22 0.012 250);
+    --ring: oklch(0.70 0.13 195);
+    --chart-1: oklch(0.75 0.17 195);
     --chart-2: oklch(0.696 0.17 162.48);
     --chart-3: oklch(0.769 0.188 70.08);
     --chart-4: oklch(0.627 0.265 303.9);
     --chart-5: oklch(0.645 0.246 16.439);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.985 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(0.269 0 0);
-    --sidebar-ring: oklch(0.439 0 0);
+    --sidebar: oklch(0.11 0.018 250);
+    --sidebar-foreground: oklch(0.90 0.005 250);
+    --sidebar-primary: oklch(0.82 0.16 195);
+    --sidebar-primary-foreground: oklch(0.15 0.02 250);
+    --sidebar-accent: oklch(0.17 0.020 250);
+    --sidebar-accent-foreground: oklch(0.90 0.005 250);
+    --sidebar-border: oklch(0.20 0.015 250);
+    --sidebar-ring: oklch(0.70 0.13 195);
 }
 
 @layer base {
@@ -183,4 +183,146 @@
     .os-scanlines {
         animation: none;
     }
+}
+
+/* =============================================
+   Admin Console — Futuristic Theme
+   ============================================= */
+
+.admin-shell {
+    background: #030812;
+    color: #e2e8f0;
+    min-height: 100vh;
+}
+
+.admin-grid-bg {
+    background-image:
+        linear-gradient(rgba(34, 211, 238, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px);
+    background-size: 52px 52px;
+}
+
+.admin-radial-glow {
+    background:
+        radial-gradient(circle at 72% 12%, rgba(124, 58, 237, 0.12), transparent 36%),
+        radial-gradient(circle at 18% 82%, rgba(6, 182, 212, 0.10), transparent 34%);
+}
+
+.admin-glass {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.admin-glass-card {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 1rem;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.admin-glass-card:hover {
+    border-color: rgba(34, 211, 238, 0.18);
+    box-shadow: 0 0 30px rgba(34, 211, 238, 0.06);
+}
+
+.admin-input {
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.75rem;
+    color: #f1f5f9;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-input:focus {
+    border-color: rgba(34, 211, 238, 0.45);
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.08);
+    outline: none;
+}
+
+.admin-input::placeholder {
+    color: rgba(148, 163, 184, 0.5);
+}
+
+.admin-btn-primary {
+    background: #22d3ee;
+    color: #03111c;
+    border-radius: 0.75rem;
+    font-weight: 500;
+    transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.admin-btn-primary:hover {
+    background: #67e8f9;
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.25);
+}
+
+.admin-btn-primary:active {
+    transform: scale(0.98);
+}
+
+.admin-btn-primary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.admin-sidebar-item {
+    transition: background 0.2s ease, border-color 0.2s ease;
+    border: 1px solid transparent;
+    border-radius: 0.625rem;
+}
+
+.admin-sidebar-item:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.06);
+}
+
+.admin-sidebar-item.active {
+    background: rgba(34, 211, 238, 0.08);
+    border-color: rgba(34, 211, 238, 0.2);
+}
+
+.admin-sidebar-item.active .admin-nav-icon {
+    color: #22d3ee;
+    filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.4));
+}
+
+@keyframes admin-pulse-glow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.admin-status-dot {
+    animation: admin-pulse-glow 2.5s ease-in-out infinite;
+}
+
+@keyframes admin-counter {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.admin-counter-enter {
+    animation: admin-counter 0.5s ease-out forwards;
+}
+
+/* Scrollbar styling for admin */
+.admin-shell ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.admin-shell ::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.admin-shell ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 99px;
+}
+
+.admin-shell ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.14);
 }
