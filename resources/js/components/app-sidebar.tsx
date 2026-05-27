@@ -36,11 +36,6 @@ const footerNavItems: NavItem[] = [
         href: '/',
         icon: House,
     },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
-    },
 ];
 
 export function AppSidebar() {
