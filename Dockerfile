@@ -31,6 +31,12 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
 
+RUN apt-get install -y nodejs npm
+
+RUN npm install
+
+RUN npm run build
+
 EXPOSE 10000
 
 ENV PORT=10000
